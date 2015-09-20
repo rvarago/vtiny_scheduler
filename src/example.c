@@ -18,11 +18,11 @@ int
 main( int argc, char** argv )
 {
 	vtiny_scheduler_initialize( &scheduler );
-	if( vtiny_scheduler_append_procedure( &scheduler, tst1, "Foo", 2 ) == -1 )
+	if( vtiny_scheduler_append_task( &scheduler, tst1, "Foo", 2 ) == -1 )
 	{
 		exit( -1 );
 	}
-	if( vtiny_scheduler_append_procedure( &scheduler, tst1, "Bar", 4 ) == -1 )
+	if( vtiny_scheduler_append_task( &scheduler, tst1, "Bar", 4 ) == -1 )
 	{
 		exit( -1 );
 	}

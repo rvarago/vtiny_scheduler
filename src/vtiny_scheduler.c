@@ -7,15 +7,15 @@ vtiny_scheduler_initialize( vtiny_scheduler_t* scheduler )
 }
 
 int
-vtiny_scheduler_append_procedure( vtiny_scheduler_t* scheduler, vtiny_scheduler_procedure_t procedure, void* procedure_parameter, int executions )
+vtiny_scheduler_append_task( vtiny_scheduler_t* scheduler, vtiny_task_t task, void* task_parameter, int executions )
 {
 	if( scheduler->index >= VTINY_SCHEDULER_POOL_SIZE )
 	{
 		return( -1 );
 	}	
-	scheduler->procedures[ scheduler->index ].procedure = procedure;
-	scheduler->procedures[ scheduler->index ].parameter = procedure_parameter;
-	scheduler->procedures[ scheduler->index ].executions = executions;
+	scheduler->tasks[ scheduler->index ].task = task;
+	scheduler->tasks[ scheduler->index ].parameter = task_parameter;
+	scheduler->tasks[ scheduler->index ].executions = executions;
 	scheduler->index++;
 	return( 0 );
 }
@@ -37,12 +37,12 @@ vtiny_scheduler_execute( vtiny_scheduler_t* scheduler )
 			i = 0;	
 			vtiny_executor_sm.pending = 0;
 		}
-		if( scheduler->procedures[ i ].executions == VTINY_SCHEDULER_EXECUTE_FOREVER || scheduler->procedures[ i ].executions > 0 )
+		if( scheduler->tasks[ i ].executions == VTINY_SCHEDULER_EXECUTE_FOREVER || scheduler->tasks[ i ].executions > 0 )
 		{	
-			scheduler->procedures[ i ].procedure( scheduler->procedures[ i ].parameter );
-			if( scheduler->procedures[ i ].executions > 0 )
+			scheduler->tasks[ i ].task( scheduler->tasks[ i ].parameter );
+			if( scheduler->tasks[ i ].executions > 0 )
 			{
-				scheduler->procedures[ i ].executions--;
+				scheduler->tasks[ i ].executions--;
 			}
 			vtiny_executor_sm.last_index = i + 1;
 			vtiny_executor_sm.pending = 1;
