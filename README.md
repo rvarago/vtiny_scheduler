@@ -2,4 +2,4 @@
 A really really tiny task scheduler designed for low resources environments
 
 Contributors:
-Rafael Varago de Aguiar (rafaelvarago@yahoo.com.br)
+Rafael Varago de Aguiar (varago.rafael@gmail.com.)
